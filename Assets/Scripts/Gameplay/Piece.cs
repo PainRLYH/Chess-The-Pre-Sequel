@@ -122,7 +122,6 @@ public class Piece : MonoBehaviour
         }
 
         selected_Piece.sprite.material = selected_Piece.material;   // Reset the material of the selected piece to its original material
-        selected_Piece = null;   // Reset the selected piece to null after moving
     }
 
     public virtual bool legal_Attack(Tile target)
@@ -133,7 +132,6 @@ public class Piece : MonoBehaviour
     public void Capture(Tile target)
     {
         combat_Manager.StartCombat(this, target.occupied_By);      // Start combat between this piece and the piece occupying the target tile
-
     }
 
     public virtual bool legal_Move(Tile info)
