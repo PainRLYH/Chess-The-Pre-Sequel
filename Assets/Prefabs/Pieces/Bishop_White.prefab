@@ -101,11 +101,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b9c5124893b4445aac5743e953a2f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWhite: 0
-  material: {fileID: 0}
-  chosen_Material: {fileID: 2100000, guid: 49358bf288bd5ff4d9be1be65f530d16, type: 2}
-  highlight_Material: {fileID: 2100000, guid: 79d79811d63f88740876aed317560acb, type: 2}
-  attack_Highlight_Material: {fileID: 2100000, guid: 9a25e95704052b44898a8e0e0c116c6f, type: 2}
+  m_isWhite: 0
+  m_originalMaterial: {fileID: 0}
+  m_chosenMaterial: {fileID: 2100000, guid: 49358bf288bd5ff4d9be1be65f530d16, type: 2}
+  m_health: 0
+  m_attackPower: 0
+  m_defense: 0
+  m_pierceResist: 0
+  m_slashResist: 0
+  m_bludgeonResist: 0
+  m_attackType: 0
 --- !u!61 &4840575254642205306
 BoxCollider2D:
   m_ObjectHideFlags: 0

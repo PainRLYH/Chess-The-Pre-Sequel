@@ -29,14 +29,14 @@ public class Rook : Piece
                 // Check if there are pieces in the way
                 for (int i = min_x + 1; i < max_x; i++)     // Check horizontal movement
                 {
-                    if (m_board.tiles[i, m_currentCoordinates.y].GetComponent<Tile>().m_occupiedBy != null)
+                    if (m_board.m_tiles[i, m_currentCoordinates.y].GetComponent<Tile>().m_occupiedBy != null)
                     {
                         return false;
                     }
                 }
                 for (int j = min_y + 1; j < max_y; j++)     // Check vertical movement
                 {
-                    if (m_board.tiles[m_currentCoordinates.x, j].GetComponent<Tile>().m_occupiedBy != null)
+                    if (m_board.m_tiles[m_currentCoordinates.x, j].GetComponent<Tile>().m_occupiedBy != null)
                     {
                         return false;
                     }

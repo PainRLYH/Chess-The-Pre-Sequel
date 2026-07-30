@@ -36,7 +36,7 @@ public class Bishop : Piece
         {
             int x = m_currentCoordinates.x + i * x_dir;      // Calculate the coordinates of the tile being checked
             int y = m_currentCoordinates.y + i * y_dir;      
-            if (m_board.tiles[x, y].GetComponent<Tile>().m_occupiedBy != null)
+            if (m_board.m_tiles[x, y].GetComponent<Tile>().m_occupiedBy != null)
             {
                 return false;
             }

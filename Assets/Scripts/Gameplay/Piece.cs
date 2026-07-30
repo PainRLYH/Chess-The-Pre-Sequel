@@ -65,7 +65,7 @@ public class Piece : MonoBehaviour
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile targetTile = m_board.tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
+                Tile targetTile = m_board.m_tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
                 targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
                 targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
                 targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
@@ -76,7 +76,7 @@ public class Piece : MonoBehaviour
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile target_Tile = m_board.tiles[i, j].GetComponent<Tile>();  
+                Tile target_Tile = m_board.m_tiles[i, j].GetComponent<Tile>();  
                 if (LegalMove(target_Tile))
                 {
                     target_Tile.m_isLightened = true;
@@ -112,7 +112,7 @@ public class Piece : MonoBehaviour
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile target_Tile = m_board.tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
+                Tile target_Tile = m_board.m_tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
                 target_Tile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
                 target_Tile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
                 target_Tile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
