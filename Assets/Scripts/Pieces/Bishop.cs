@@ -5,24 +5,24 @@ public class Bishop : Piece
     protected override void Start()
     {
         base.Start();
-        health = 6;
-        attack_pwr = 3;
-        defense = 1;
-        attack_Type = Attack_Types.Piercing;
-        pierce_resist = 0.75f;
-        slash_resist = 1.25f;
-        bludgeon_resist = 1.0f;
+        m_health = 6;
+        m_attackPower = 3;
+        m_defense = 1;
+        m_attackType = AttackTypes.Piercing;
+        m_pierceResist = 0.75f;
+        m_slashResist = 1.25f;
+        m_bludgeonResist = 1.0f;
     }
 
-    public override bool legal_Move(Tile target_Tile)
+    public override bool LegalMove(Tile target_Tile)
     {
-        if (target_Tile.occupied_By != null)
+        if (target_Tile.m_occupiedBy != null)
         {
             return false;
         }
 
-        int dx = target_Tile.coordinates.x - current_Coordinates.x;     // Calculate the difference in x and y coordinates between the current position and the target tile
-        int dy = target_Tile.coordinates.y - current_Coordinates.y;     
+        int dx = target_Tile.m_coordinates.x - m_currentCoordinates.x;     // Calculate the difference in x and y coordinates between the current position and the target tile
+        int dy = target_Tile.m_coordinates.y - m_currentCoordinates.y;     
 
         if (Mathf.Abs(dx) != Mathf.Abs(dy))     
         {
@@ -34,9 +34,9 @@ public class Bishop : Piece
 
         for (int i = 1; i < Mathf.Abs(dx); i++)     // Check each tile along the path to ensure it is not occupied by another piece
         {
-            int x = current_Coordinates.x + i * x_dir;      // Calculate the coordinates of the tile being checked
-            int y = current_Coordinates.y + i * y_dir;      
-            if (board.tiles[x, y].GetComponent<Tile>().occupied_By != null)
+            int x = m_currentCoordinates.x + i * x_dir;      // Calculate the coordinates of the tile being checked
+            int y = m_currentCoordinates.y + i * y_dir;      
+            if (m_board.tiles[x, y].GetComponent<Tile>().m_occupiedBy != null)
             {
                 return false;
             }

@@ -1,30 +1,29 @@
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public Piece occupied_By;
-    public Vector2Int coordinates;
-    public bool is_Lightened;
-    public bool is_Attack;
-    private SpriteRenderer sprite;
-    public Material original_Material;
+    public Piece m_occupiedBy;
+    public Vector2Int m_coordinates;
+    public bool m_isLightened;
+    public bool m_isAttack;
+    private SpriteRenderer m_sprite;
+    public Material m_originalMaterial;
 
     private void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
-        original_Material = sprite.material;
+        m_sprite = GetComponent<SpriteRenderer>();
+        m_originalMaterial = m_sprite.material;
     }
 
     private void OnMouseDown()
     {
-        if (is_Attack)
+        if (m_isAttack)
         {
-            Piece.selected_Piece.Capture(this);
+            Piece.s_selectedPiece.Capture(this);
         }
-        else if (is_Lightened)
+        else if (m_isLightened)
         {
-            Piece.selected_Piece.Move(this);
+            Piece.s_selectedPiece.Move(this);
         }
     }
 }

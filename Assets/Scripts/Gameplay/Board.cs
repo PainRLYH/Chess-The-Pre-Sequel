@@ -34,14 +34,14 @@ public class Board : MonoBehaviour
                     tiles[i, j] = Instantiate(tile_White_Prefab, new Vector3(i, j, 0), Quaternion.identity);
                     tiles[i, j].transform.SetParent(gameObject.transform);
                     tiles[i, j].name = alphabet[i] + (j + 1);
-                    tiles[i, j].GetComponent<Tile>().coordinates = new Vector2Int(i, j);
+                    tiles[i, j].GetComponent<Tile>().m_coordinates = new Vector2Int(i, j);
                }
                else
                {
                     tiles[i, j] = Instantiate(tile_Black_Prefab, new Vector3(i, j, 0), Quaternion.identity);
                     tiles[i, j].transform.SetParent(gameObject.transform);
                     tiles[i, j].name = alphabet[i] + (j + 1);
-                    tiles[i, j].GetComponent<Tile>().coordinates = new Vector2Int(i, j);
+                    tiles[i, j].GetComponent<Tile>().m_coordinates = new Vector2Int(i, j);
                 }
             }
         }
@@ -81,19 +81,19 @@ public class Board : MonoBehaviour
         {
             // Instantiate the Pieces
             GameObject new_White_Piece = Instantiate(w_Piece_Arangement[i], tiles[i, 0].transform);
-            new_White_Piece.GetComponent<Piece>().isWhite = true;
-            tiles[i, 0].GetComponent<Tile>().occupied_By = new_White_Piece.GetComponent<Piece>();
+            new_White_Piece.GetComponent<Piece>().m_isWhite = true;
+            tiles[i, 0].GetComponent<Tile>().m_occupiedBy = new_White_Piece.GetComponent<Piece>();
             GameObject new_Black_Piece = Instantiate(b_Piece_Arangement[i], tiles[i, 7].transform);
-            new_Black_Piece.GetComponent<Piece>().isWhite = false;
-            tiles[i, 7].GetComponent<Tile>().occupied_By = new_Black_Piece.GetComponent<Piece>();
+            new_Black_Piece.GetComponent<Piece>().m_isWhite = false;
+            tiles[i, 7].GetComponent<Tile>().m_occupiedBy = new_Black_Piece.GetComponent<Piece>();
 
             // Instatiate the Pawns
             GameObject new_White_Pawn = Instantiate(W_Pawn_Prefab, tiles[i, 1].transform);
-            new_White_Pawn.GetComponent<Piece>().isWhite = true;
-            tiles[i, 1].GetComponent<Tile>().occupied_By = new_White_Pawn.GetComponent<Piece>();
+            new_White_Pawn.GetComponent<Piece>().m_isWhite = true;
+            tiles[i, 1].GetComponent<Tile>().m_occupiedBy = new_White_Pawn.GetComponent<Piece>();
             GameObject new_Black_Pawn = Instantiate(B_Pawn_Prefab, tiles[i, 6].transform);
-            new_Black_Pawn.GetComponent<Piece>().isWhite = false;
-            tiles[i, 6].GetComponent<Tile>().occupied_By = new_Black_Pawn.GetComponent<Piece>();
+            new_Black_Pawn.GetComponent<Piece>().m_isWhite = false;
+            tiles[i, 6].GetComponent<Tile>().m_occupiedBy = new_Black_Pawn.GetComponent<Piece>();
         }
     }
 

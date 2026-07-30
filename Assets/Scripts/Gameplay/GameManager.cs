@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Game_Manager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     Board board;
     private void Start()

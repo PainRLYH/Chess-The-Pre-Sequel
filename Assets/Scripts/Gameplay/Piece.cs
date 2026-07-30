@@ -3,48 +3,46 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     // Variables
-    public bool isWhite;
-    private SpriteRenderer sprite;
-    public Material material;       // Original material of the piece
-    public Material chosen_Material;    // Material to indicate the piece is selected
-    public Material highlight_Material;     // Material to indicate a legal move
-    public Material attack_Highlight_Material;     // Material to indicate a legal attack move
-    public static Piece selected_Piece;    // Static variable to keep track of the currently selected piece
-    protected Board board;     // Reference to the Board instance
-    protected Combat_Manager combat_Manager;     // Reference to the Combat_Manager instance
+    public bool m_isWhite;
+    private SpriteRenderer m_sprite;
+    public Material m_originalMaterial;       // Original material of the piece
+    public Material m_chosenMaterial;    // Material to indicate the piece is selected
+    public static Piece s_selectedPiece;    // Static variable to keep track of the currently selected piece
+    protected Board m_board;     // Reference to the Board instance
+    protected CombatManager m_combatManager;     // Reference to the Combat_Manager instance
 
-    protected Vector2Int current_Coordinates;       // Current coordinates of the piece on the board
+    protected Vector2Int m_currentCoordinates;       // Current coordinates of the piece on the board
 
     // Stats
-    public int health;
-    public int attack_pwr;
-    public int defense;
-    public float pierce_resist;
-    public float slash_resist;
-    public float bludgeon_resist;
-    public Attack_Types attack_Type;
+    public int m_health;
+    public int m_attackPower;
+    public int m_defense;
+    public float m_pierceResist;
+    public float m_slashResist;
+    public float m_bludgeonResist;
+    public AttackTypes m_attackType;
 
-    public enum Attack_Types        // Enum to represent different types of attacks
+    public enum AttackTypes        // Enum to represent different types of attacks
     {
         Piercing, Slashing, Bludgeoning
     }
 
     protected virtual void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
-        board = FindAnyObjectByType<Board>();    // Find the Board instance in the scene
-        combat_Manager = FindAnyObjectByType<Combat_Manager>();     // Find the Combat_Manager instance in the scene
-        material = sprite.material;     // Store the original material of the piece
+        m_sprite = GetComponent<SpriteRenderer>();
+        m_board = FindAnyObjectByType<Board>();    // Find the Board instance in the scene
+        m_combatManager = FindAnyObjectByType<CombatManager>();     // Find the Combat_Manager instance in the scene
+        m_originalMaterial = m_sprite.material;     // Store the original material of the piece
     }
 
     private void OnMouseDown()
     {
-        if (isWhite == false)
+        if (m_isWhite == false)
         {
-            Tile my_Tile = GetComponentInParent<Tile>();
-            if (selected_Piece != null && my_Tile.is_Attack)    // If there is a selected piece and the clicked tile is a legal attack move
+            Tile myTile = GetComponentInParent<Tile>();
+            if (s_selectedPiece != null && myTile.m_isAttack)    // If there is a selected piece and the clicked tile is a legal attack move
             {
-                selected_Piece.Capture(my_Tile);    // Call the Capture method of the selected piece to initiate combat with the piece on the clicked tile
+                s_selectedPiece.Capture(myTile);    // Call the Capture method of the selected piece to initiate combat with the piece on the clicked tile
                 return;     // Return after initiating combat
             }
             return;     // If the piece is not white, do nothing and return
@@ -52,25 +50,25 @@ public class Piece : MonoBehaviour
 
         Debug.Log("Clicked on " + gameObject.name);    // Log the name of the clicked piece
 
-        if (selected_Piece != null)     // If there is a previously selected piece, reset its material
+        if (s_selectedPiece != null)     // If there is a previously selected piece, reset its material
         {
-            selected_Piece.sprite.material = selected_Piece.material;   
+            s_selectedPiece.m_sprite.material = s_selectedPiece.m_originalMaterial;   
         }
         
-        selected_Piece = this;      // Set the currently selected piece to this piece
-        selected_Piece.sprite.material = chosen_Material;    // Change the material to indicate selection
+        s_selectedPiece = this;      // Set the currently selected piece to this piece
+        s_selectedPiece.m_sprite.material = m_chosenMaterial;    // Change the material to indicate selection
 
-        Tile current_Tile = GetComponentInParent<Tile>(); 
-        current_Coordinates = current_Tile.coordinates;    // Get the coordinates of the tile the piece is currently on
+        Tile currentTile = GetComponentInParent<Tile>(); 
+        m_currentCoordinates = currentTile.m_coordinates;    // Get the coordinates of the tile the piece is currently on
 
         for (int i = 0; i <= 7; i++)
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile target_Tile = board.tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
-                target_Tile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
-                target_Tile.is_Lightened = false;   // Reset the is_Lightened property of each tile to false
-                target_Tile.is_Attack = false;   // Reset the is_Attack property of each tile to false
+                Tile targetTile = m_board.tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
+                targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
+                targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
+                targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
             }
         }
 
@@ -78,70 +76,64 @@ public class Piece : MonoBehaviour
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile target_Tile = board.tiles[i, j].GetComponent<Tile>();  
-                if (legal_Move(target_Tile))
+                Tile target_Tile = m_board.tiles[i, j].GetComponent<Tile>();  
+                if (LegalMove(target_Tile))
                 {
-                    target_Tile.is_Lightened = true;
+                    target_Tile.m_isLightened = true;
                     target_Tile.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 0f, 0.5f);     // Change the color of legal move tiles to a semi-transparent yellow
                 }
-                else if (target_Tile.occupied_By != null && target_Tile.occupied_By.isWhite != isWhite)
+                else if (target_Tile.m_occupiedBy != null && target_Tile.m_occupiedBy.m_isWhite != m_isWhite)
                 {
-                    Piece temp = target_Tile.occupied_By;       // Temporarily store the piece occupying the target tile
-                    target_Tile.occupied_By = null;     // Temporarily set the occupied_By property of the target tile to null to check if the move is legal without considering the piece on the target tile
-                    if (legal_Attack(target_Tile))
+                    Piece temp = target_Tile.m_occupiedBy;       // Temporarily store the piece occupying the target tile
+                    target_Tile.m_occupiedBy = null;     // Temporarily set the occupied_By property of the target tile to null to check if the move is legal without considering the piece on the target tile
+                    if (LegalAttack(target_Tile))
                     {
-                        target_Tile.is_Lightened = true;
+                        target_Tile.m_isLightened = true;
                         target_Tile.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 0.5f);     // Change the color of legal attack move tiles to a semi-transparent red
-                        target_Tile.is_Attack = true;     // Set the is_Attack property of the target tile to true to indicate that it is a legal attack move
+                        target_Tile.m_isAttack = true;     // Set the is_Attack property of the target tile to true to indicate that it is a legal attack move
                     }
-                    target_Tile.occupied_By = temp;     // Restore the occupied_By property of the target tile to its original value after checking legality
+                    target_Tile.m_occupiedBy = temp;     // Restore the occupied_By property of the target tile to its original value after checking legality
                 }
             }
         }
 
-        Debug.Log(current_Coordinates);
+        Debug.Log(m_currentCoordinates);
     }
 
     public void Move(Tile target)
     {
-        GetComponentInParent<Tile>().occupied_By = null;     // Set the occupied_By property of the current tile to null
+        GetComponentInParent<Tile>().m_occupiedBy = null;     // Set the occupied_By property of the current tile to null
         
-        selected_Piece.transform.SetParent(target.transform);       // Set the parent of the selected piece to the target tile
-        selected_Piece.transform.localPosition = Vector3.zero;      // Move the piece to the center of the target tile
-        target.occupied_By = this;     // Set the occupied_By property of the target tile to this piece
+        s_selectedPiece.transform.SetParent(target.transform);       // Set the parent of the selected piece to the target tile
+        s_selectedPiece.transform.localPosition = Vector3.zero;      // Move the piece to the center of the target tile
+        target.m_occupiedBy = this;     // Set the occupied_By property of the target tile to this piece
 
         for (int i = 0; i <= 7; i++)    
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile target_Tile = board.tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
+                Tile target_Tile = m_board.tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
                 target_Tile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
-                target_Tile.is_Lightened = false;   // Reset the is_Lightened property of each tile to false
-                target_Tile.is_Attack = false;   // Reset the is_Attack property of each tile to false
+                target_Tile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
+                target_Tile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
             }
         }
 
-        selected_Piece.sprite.material = selected_Piece.material;   // Reset the material of the selected piece to its original material
+        s_selectedPiece.m_sprite.material = s_selectedPiece.m_originalMaterial;   // Reset the material of the selected piece to its original material
     }
 
-    public virtual bool legal_Attack(Tile target)
+    public virtual bool LegalAttack(Tile target)
     {
-        return legal_Move(target);     
+        return LegalMove(target);     
     }
 
     public void Capture(Tile target)
     {
-        combat_Manager.StartCombat(this, target.occupied_By);      // Start combat between this piece and the piece occupying the target tile
+        m_combatManager.StartCombat(this, target.m_occupiedBy);      // Start combat between this piece and the piece occupying the target tile
     }
 
-    public virtual bool legal_Move(Tile info)
+    public virtual bool LegalMove(Tile info)
     {
         return true;
     }
-
-    public virtual bool illegal_Move(Tile info)
-    {
-        return false;
-    }
-
 }

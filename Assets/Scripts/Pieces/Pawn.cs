@@ -5,23 +5,23 @@
         protected override void Start()
         {
             base.Start();
-            health = 5;
-            attack_pwr = 2;
-            defense = 1;
-            attack_Type = Attack_Types.Slashing;
-            pierce_resist = 1.25f;
-            slash_resist = 1.0f;
-            bludgeon_resist = 0.75f;
+            m_health = 5;
+            m_attackPower = 2;
+            m_defense = 1;
+            m_attackType = AttackTypes.Slashing;
+            m_pierceResist = 1.25f;
+            m_slashResist = 1.0f;
+            m_bludgeonResist = 0.75f;
         }
 
-       public override bool legal_Move(Tile target_Tile)
+       public override bool LegalMove(Tile target_Tile)
        {
             // 1 tile step forward
-            if (target_Tile.occupied_By == null)
+            if (target_Tile.m_occupiedBy == null)
             {
-                if (target_Tile.coordinates.y == current_Coordinates.y + 1)
+                if (target_Tile.m_coordinates.y == m_currentCoordinates.y + 1)
                 {
-                    if (target_Tile.coordinates.x == current_Coordinates.x)
+                    if (target_Tile.m_coordinates.x == m_currentCoordinates.x)
                     {
                         return true;
                     }
@@ -29,13 +29,13 @@
             }
 
             // 2 tile step forward
-            if (target_Tile.occupied_By == null)
+            if (target_Tile.m_occupiedBy == null)
             {
-                if (target_Tile.coordinates.y == current_Coordinates.y + 2 && current_Coordinates.y == 1)
+                if (target_Tile.m_coordinates.y == m_currentCoordinates.y + 2 && m_currentCoordinates.y == 1)
                 {
-                    if (board.tiles[current_Coordinates.x, current_Coordinates.y + 1].GetComponent<Tile>().occupied_By == null)
+                    if (m_board.tiles[m_currentCoordinates.x, m_currentCoordinates.y + 1].GetComponent<Tile>().m_occupiedBy == null)
                     {
-                        if (target_Tile.coordinates.x == current_Coordinates.x)
+                        if (target_Tile.m_coordinates.x == m_currentCoordinates.x)
                         {
                             return true;
                         }
@@ -45,11 +45,11 @@
             return false;
        }
 
-    public override bool legal_Attack(Tile target_Tile)
+    public override bool LegalAttack(Tile target_Tile)
     {
-        if (target_Tile.coordinates.y == current_Coordinates.y + 1)     // Check if the target tile is one step forward
+        if (target_Tile.m_coordinates.y == m_currentCoordinates.y + 1)     // Check if the target tile is one step forward
         {
-            if (Mathf.Abs(target_Tile.coordinates.x - current_Coordinates.x) == 1)      // Check if the target tile is one step diagonally
+            if (Mathf.Abs(target_Tile.m_coordinates.x - m_currentCoordinates.x) == 1)      // Check if the target tile is one step diagonally
             {
                 return true;
             }

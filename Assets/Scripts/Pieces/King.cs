@@ -5,24 +5,24 @@ public class King : Piece
     protected override void Start()
     {
         base.Start();
-        health = 15;
-        attack_pwr = 4;
-        defense = 4;
-        attack_Type = Attack_Types.Bludgeoning;
-        pierce_resist = 1.0f;
-        slash_resist = 0.75f;
-        bludgeon_resist = 1.25f;
+        m_health = 15;
+        m_attackPower = 4;
+        m_defense = 4;
+        m_attackType = AttackTypes.Bludgeoning;
+        m_pierceResist = 1.0f;
+        m_slashResist = 0.75f;
+        m_bludgeonResist = 1.25f;
     }
 
-    public override bool legal_Move(Tile target_Tile)
+    public override bool LegalMove(Tile targetTile)
     {
-        if (target_Tile.occupied_By != null)
+        if (targetTile.m_occupiedBy != null)
         {
             return false;
         }
 
-        int dx = target_Tile.coordinates.x - current_Coordinates.x;     // Calculate the difference in x and y coordinates between the current position and the target tile
-        int dy = target_Tile.coordinates.y - current_Coordinates.y;
+        int dx = targetTile.m_coordinates.x - m_currentCoordinates.x;     // Calculate the difference in x and y coordinates between the current position and the target tile
+        int dy = targetTile.m_coordinates.y - m_currentCoordinates.y;
 
         if (!(Mathf.Abs(dx) <=1 && Mathf.Abs(dy) <= 1))
         {
