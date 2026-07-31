@@ -525,21 +525,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013cb611ad916b54b9871de9fbdc6b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile_White_Prefab: {fileID: 7922195957526607949, guid: d0a64980a7a9e564c91f2b90971ea901, type: 3}
-  tile_Black_Prefab: {fileID: 3845061416390464285, guid: cb2bb8c29f6fab149af5f4db79e7de09, type: 3}
-  W_Pawn_Prefab: {fileID: 330066104273332728, guid: 166819f7bd7c05f4f8fb7e43bab64f34, type: 3}
-  W_Rook_Prefab: {fileID: 6608482925771225068, guid: f23750b7eec13914cb7d7a214a460911, type: 3}
-  W_Knight_Prefab: {fileID: 8715312195935791270, guid: 17d62275c504b9d4899e3cbfcb606f8c, type: 3}
-  W_Bishop_Prefab: {fileID: 6571927888463796204, guid: 7f5a5a8962086134bb37edb5492fb8fa, type: 3}
-  W_Queen_Prefab: {fileID: 4161805453116611958, guid: 1bd819d036750634faee21b905b3b7ed, type: 3}
-  W_King_Prefab: {fileID: 8449386419380409170, guid: cf86b3e94bae8274099f730892a4f184, type: 3}
-  B_Pawn_Prefab: {fileID: 857867869394386499, guid: 5e08cd14d7ec5d545bdc34d65eb0424c, type: 3}
-  B_Rook_Prefab: {fileID: 634944068562311088, guid: 230059b6fee9b9b4689bcd2e11e82a11, type: 3}
-  B_Knight_Prefab: {fileID: 5509339463605297241, guid: 53a2f1adf189d4a438a5e51e0f1af643, type: 3}
-  B_Bishop_Prefab: {fileID: 2926759183431211320, guid: 45c1c00ba66ad824a8dbeb8f38ed7113, type: 3}
-  B_Queen_Prefab: {fileID: 586796152034287856, guid: f783e2610a6989c45a44541c4f25907d, type: 3}
-  B_King_Prefab: {fileID: 2905380267739568865, guid: ed70c02fa397b8047a13f657935650ef, type: 3}
-  fisher: 0
+  m_tileWhitePrefab: {fileID: 7922195957526607949, guid: d0a64980a7a9e564c91f2b90971ea901, type: 3}
+  m_tileBlackPrefab: {fileID: 3845061416390464285, guid: cb2bb8c29f6fab149af5f4db79e7de09, type: 3}
+  m_whitePawnPrefab: {fileID: 330066104273332728, guid: 166819f7bd7c05f4f8fb7e43bab64f34, type: 3}
+  m_whiteRookPrefab: {fileID: 6608482925771225068, guid: f23750b7eec13914cb7d7a214a460911, type: 3}
+  m_whiteKnightPrefab: {fileID: 8715312195935791270, guid: 17d62275c504b9d4899e3cbfcb606f8c, type: 3}
+  m_whiteBishopPrefab: {fileID: 6571927888463796204, guid: 7f5a5a8962086134bb37edb5492fb8fa, type: 3}
+  m_whiteQueenPrefab: {fileID: 4161805453116611958, guid: 1bd819d036750634faee21b905b3b7ed, type: 3}
+  m_whiteKingPrefab: {fileID: 8449386419380409170, guid: cf86b3e94bae8274099f730892a4f184, type: 3}
+  m_blackPawnPrefab: {fileID: 857867869394386499, guid: 5e08cd14d7ec5d545bdc34d65eb0424c, type: 3}
+  m_blackRookPrefab: {fileID: 634944068562311088, guid: 230059b6fee9b9b4689bcd2e11e82a11, type: 3}
+  m_blackKnightPrefab: {fileID: 5509339463605297241, guid: 53a2f1adf189d4a438a5e51e0f1af643, type: 3}
+  m_blackBishopPrefab: {fileID: 2926759183431211320, guid: 45c1c00ba66ad824a8dbeb8f38ed7113, type: 3}
+  m_blackQueenPrefab: {fileID: 586796152034287856, guid: f783e2610a6989c45a44541c4f25907d, type: 3}
+  m_blackKingPrefab: {fileID: 2905380267739568865, guid: ed70c02fa397b8047a13f657935650ef, type: 3}
+  m_useFisherRandom: 0
 --- !u!114 &931244301
 MonoBehaviour:
   m_ObjectHideFlags: 0

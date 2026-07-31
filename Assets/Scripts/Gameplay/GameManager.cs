@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    Board board;
+    Board m_board;
     private void Start()
     {
-        board = GetComponent<Board>();
-        board.CreateBoard();
-        board.ArrangePieces();
+        m_board = GetComponent<Board>();
+        m_board.CreateBoard();
+        m_board.ArrangePieces();
     }
 }

@@ -3,11 +3,11 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     // References
-    Board board;
+    Board m_board;
 
     private void Start()
     {
-        board = FindAnyObjectByType<Board>();    
+        m_board = FindAnyObjectByType<Board>();    
     }
 
     public void StartCombat(Piece attacker, Piece defender)
@@ -30,19 +30,19 @@ public class CombatManager : MonoBehaviour
 
         if (defender.m_health <= 0)
         {
-            Tile defender_Tile = defender.GetComponentInParent<Tile>();     // Get the tile that the defender is on
+            Tile defenderTile = defender.GetComponentInParent<Tile>();     // Get the tile that the defender is on
             GameObject.Destroy(defender.gameObject);    // Destroy the defender piece
-            defender_Tile.m_occupiedBy = null;   // Clear the tile's reference to the destroyed piece
-            Piece.s_selectedPiece.Move(defender_Tile);   // Move the attacker to the defender's tile
+            defenderTile.m_occupiedBy = null;   // Clear the tile's reference to the destroyed piece
+            Piece.s_selectedPiece.Move(defenderTile);   // Move the attacker to the defender's tile
         }
         for (int i = 0; i <= 7; i++)
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile target_Tile = board.m_tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
-                target_Tile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
-                target_Tile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
-                target_Tile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
+                Tile targetTile = m_board.m_tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
+                targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
+                targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
+                targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
             }
         }
         attacker.GetComponent<SpriteRenderer>().material = attacker.m_originalMaterial;   // Reset the material of the attacker to its original material

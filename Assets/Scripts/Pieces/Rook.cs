@@ -14,27 +14,27 @@ public class Rook : Piece
         m_bludgeonResist = 1.25f;
     }
 
-    public override bool LegalMove(Tile target_Tile)
+    public override bool LegalMove(Tile targetTile)
     {
         // X & Y checks
-        if (m_currentCoordinates.x == target_Tile.m_coordinates.x || m_currentCoordinates.y == target_Tile.m_coordinates.y)
+        if (m_currentCoordinates.x == targetTile.m_coordinates.x || m_currentCoordinates.y == targetTile.m_coordinates.y)
         {
-            if (target_Tile.m_occupiedBy == null)
+            if (targetTile.m_occupiedBy == null)
             { 
-                int min_x = Mathf.Min(m_currentCoordinates.x, target_Tile.m_coordinates.x);    // Left
-                int max_x = Mathf.Max(m_currentCoordinates.x, target_Tile.m_coordinates.x);    // Right
-                int min_y = Mathf.Min(m_currentCoordinates.y, target_Tile.m_coordinates.y);    // Down
-                int max_y = Mathf.Max(m_currentCoordinates.y, target_Tile.m_coordinates.y);    // Up
+                int minX = Mathf.Min(m_currentCoordinates.x, targetTile.m_coordinates.x);    // Left
+                int maxX = Mathf.Max(m_currentCoordinates.x, targetTile.m_coordinates.x);    // Right
+                int minY = Mathf.Min(m_currentCoordinates.y, targetTile.m_coordinates.y);    // Down
+                int maxY = Mathf.Max(m_currentCoordinates.y, targetTile.m_coordinates.y);    // Up
 
                 // Check if there are pieces in the way
-                for (int i = min_x + 1; i < max_x; i++)     // Check horizontal movement
+                for (int i = minX + 1; i < maxX; i++)     // Check horizontal movement
                 {
                     if (m_board.m_tiles[i, m_currentCoordinates.y].GetComponent<Tile>().m_occupiedBy != null)
                     {
                         return false;
                     }
                 }
-                for (int j = min_y + 1; j < max_y; j++)     // Check vertical movement
+                for (int j = minY + 1; j < maxY; j++)     // Check vertical movement
                 {
                     if (m_board.m_tiles[m_currentCoordinates.x, j].GetComponent<Tile>().m_occupiedBy != null)
                     {
