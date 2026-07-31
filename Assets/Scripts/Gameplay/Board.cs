@@ -100,7 +100,7 @@ public class Board : MonoBehaviour
     {
         for (int i = pieces.Length - 1; i > 0; i--)
         {
-            int randomIndex = Random.Range(0, i);
+            int randomIndex = Random.Range(0, i + 1);
             GameObject tempHolder = pieces[i];
             pieces[i] = pieces[randomIndex];
             pieces[randomIndex] = tempHolder;
