@@ -39,7 +39,7 @@ public class CombatManager : MonoBehaviour
         {
             for (int j = 0; j <= 7; j++)
             {
-                Tile targetTile = m_board.m_tiles[i, j].GetComponent<Tile>();      // Loop through all tiles on the board
+                Tile targetTile = m_board.m_tiles[i, j];      // Loop through all tiles on the board
                 targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
                 targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
                 targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false

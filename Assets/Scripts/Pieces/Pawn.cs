@@ -33,7 +33,7 @@ public class Pawn : Piece
         {
             if (targetTile.m_coordinates.y == m_currentCoordinates.y + 2 && m_currentCoordinates.y == 1)
             {
-                if (m_board.m_tiles[m_currentCoordinates.x, m_currentCoordinates.y + 1].GetComponent<Tile>().m_occupiedBy == null)
+                if (m_board.m_tiles[m_currentCoordinates.x, m_currentCoordinates.y + 1].m_occupiedBy == null)
                 {
                     if (targetTile.m_coordinates.x == m_currentCoordinates.x)
                     {

@@ -14,7 +14,7 @@ public class Board : MonoBehaviour
     public static string[] s_alphabet = new string[] { "a", "b", "c", "d", "e", "f", "g", "h" };
 
     //Generate the chess board
-    public GameObject[,] m_tiles = new GameObject[8, 8];
+    public Tile[,] m_tiles = new Tile[8, 8];
 
     // Array to hold the white pieces
     GameObject[] m_whitePieceArrangement;
@@ -30,17 +30,19 @@ public class Board : MonoBehaviour
             {
                if((i + j) % 2 == 0)
                {
-                    m_tiles[i, j] = Instantiate(m_tileWhitePrefab, new Vector3(i, j, 0), Quaternion.identity);
+                    GameObject tempTileHold = Instantiate(m_tileWhitePrefab, new Vector3(i, j, 0), Quaternion.identity);
+                    m_tiles[i, j] = tempTileHold.GetComponent<Tile>();
                     m_tiles[i, j].transform.SetParent(gameObject.transform);
                     m_tiles[i, j].name = s_alphabet[i] + (j + 1);
-                    m_tiles[i, j].GetComponent<Tile>().m_coordinates = new Vector2Int(i, j);
+                    m_tiles[i, j].m_coordinates = new Vector2Int(i, j);
                }
                else
                {
-                    m_tiles[i, j] = Instantiate(m_tileBlackPrefab, new Vector3(i, j, 0), Quaternion.identity);
+                    GameObject tempTileHold = Instantiate(m_tileBlackPrefab, new Vector3(i, j, 0), Quaternion.identity);
+                    m_tiles[i, j] = tempTileHold.GetComponent<Tile>();
                     m_tiles[i, j].transform.SetParent(gameObject.transform);
                     m_tiles[i, j].name = s_alphabet[i] + (j + 1);
-                    m_tiles[i, j].GetComponent<Tile>().m_coordinates = new Vector2Int(i, j);
+                    m_tiles[i, j].m_coordinates = new Vector2Int(i, j);
                 }
             }
         }
@@ -81,18 +83,18 @@ public class Board : MonoBehaviour
             // Instantiate the Pieces
             GameObject newWhitePiece = Instantiate(m_whitePieceArrangement[i], m_tiles[i, 0].transform);
             newWhitePiece.GetComponent<Piece>().m_isWhite = true;
-            m_tiles[i, 0].GetComponent<Tile>().m_occupiedBy = newWhitePiece.GetComponent<Piece>();
+            m_tiles[i, 0].m_occupiedBy = newWhitePiece.GetComponent<Piece>();
             GameObject newBlackPiece = Instantiate(m_blackPieceArrangement[i], m_tiles[i, 7].transform);
             newBlackPiece.GetComponent<Piece>().m_isWhite = false;
-            m_tiles[i, 7].GetComponent<Tile>().m_occupiedBy = newBlackPiece.GetComponent<Piece>();
+            m_tiles[i, 7].m_occupiedBy = newBlackPiece.GetComponent<Piece>();
 
             // Instatiate the Pawns
             GameObject newWhitePawn = Instantiate(m_whitePawnPrefab, m_tiles[i, 1].transform);
             newWhitePawn.GetComponent<Piece>().m_isWhite = true;
-            m_tiles[i, 1].GetComponent<Tile>().m_occupiedBy = newWhitePawn.GetComponent<Piece>();
+            m_tiles[i, 1].m_occupiedBy = newWhitePawn.GetComponent<Piece>();
             GameObject newBlackPawn = Instantiate(m_blackPawnPrefab, m_tiles[i, 6].transform);
             newBlackPawn.GetComponent<Piece>().m_isWhite = false;
-            m_tiles[i, 6].GetComponent<Tile>().m_occupiedBy = newBlackPawn.GetComponent<Piece>();
+            m_tiles[i, 6].m_occupiedBy = newBlackPawn.GetComponent<Piece>();
         }
     }
 

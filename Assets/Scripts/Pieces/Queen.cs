@@ -32,14 +32,14 @@ public class Queen : Piece
             // Check if there are pieces in the way
             for (int i = minX + 1; i < maxX; i++)     // Check horizontal movement
             {
-                if (m_board.m_tiles[i, m_currentCoordinates.y].GetComponent<Tile>().m_occupiedBy != null)
+                if (m_board.m_tiles[i, m_currentCoordinates.y].m_occupiedBy != null)
                 {
                     return false;
                 }
             }
             for (int j = minY + 1; j < maxY; j++)     // Check vertical movement
             {
-                if (m_board.m_tiles[m_currentCoordinates.x, j].GetComponent<Tile>().m_occupiedBy != null)
+                if (m_board.m_tiles[m_currentCoordinates.x, j].m_occupiedBy != null)
                 {
                     return false;
                 }
@@ -63,7 +63,7 @@ public class Queen : Piece
         {
             int x = m_currentCoordinates.x + i * xDir;      // Calculate the coordinates of the tile being checked
             int y = m_currentCoordinates.y + i * yDir;
-            if (m_board.m_tiles[x, y].GetComponent<Tile>().m_occupiedBy != null)
+            if (m_board.m_tiles[x, y].m_occupiedBy != null)
             {
                 return false;
             }
