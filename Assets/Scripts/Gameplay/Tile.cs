@@ -7,12 +7,10 @@ public class Tile : MonoBehaviour
     public bool m_isLightened;
     public bool m_isAttack;
     private SpriteRenderer m_sprite;
-    public Material m_originalMaterial;
 
-    private void Start()
+    private void Awake()
     {
         m_sprite = GetComponent<SpriteRenderer>();
-        m_originalMaterial = m_sprite.material;
     }
 
     private void OnMouseDown()
@@ -25,5 +23,12 @@ public class Tile : MonoBehaviour
         {
             Piece.s_selectedPiece.Move(this);
         }
+    }
+
+    public void ClearHighlights()
+    {
+        m_isLightened = false;
+        m_isAttack = false;
+        m_sprite.color = Color.white;
     }
 }

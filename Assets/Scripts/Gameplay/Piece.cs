@@ -50,10 +50,7 @@ public class Piece : MonoBehaviour
 
         Debug.Log("Clicked on " + gameObject.name);    // Log the name of the clicked piece
 
-        if (s_selectedPiece != null)     // If there is a previously selected piece, reset its material
-        {
-            s_selectedPiece.m_sprite.material = s_selectedPiece.m_originalMaterial;   
-        }
+        Deselect();      // Call the Deselect method to reset the material of the previously selected piece
         
         s_selectedPiece = this;      // Set the currently selected piece to this piece
         s_selectedPiece.m_sprite.material = m_chosenMaterial;    // Change the material to indicate selection
@@ -61,16 +58,7 @@ public class Piece : MonoBehaviour
         Tile currentTile = GetComponentInParent<Tile>(); 
         m_currentCoordinates = currentTile.m_coordinates;    // Get the coordinates of the tile the piece is currently on
 
-        for (int i = 0; i <= 7; i++)
-        {
-            for (int j = 0; j <= 7; j++)
-            {
-                Tile targetTile = m_board.m_tiles[i, j];      // Loop through all tiles on the board
-                targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
-                targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
-                targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
-            }
-        }
+        m_board.ClearAllHighlights();     // Clear all highlights on the board
 
         for (int i = 0; i <= 7; i++)
         {
@@ -104,22 +92,22 @@ public class Piece : MonoBehaviour
     {
         GetComponentInParent<Tile>().m_occupiedBy = null;     // Set the occupied_By property of the current tile to null
         
-        s_selectedPiece.transform.SetParent(target.transform);       // Set the parent of the selected piece to the target tile
-        s_selectedPiece.transform.localPosition = Vector3.zero;      // Move the piece to the center of the target tile
+        transform.SetParent(target.transform);       // Set the parent of the selected piece to the target tile
+        transform.localPosition = Vector3.zero;      // Move the piece to the center of the target tile
         target.m_occupiedBy = this;     // Set the occupied_By property of the target tile to this piece
 
-        for (int i = 0; i <= 7; i++)    
-        {
-            for (int j = 0; j <= 7; j++)
-            {
-                Tile targetTile = m_board.m_tiles[i, j];      // Loop through all tiles on the board
-                targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
-                targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
-                targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
-            }
-        }
+        m_board.ClearAllHighlights();     // Clear all highlights on the board
 
-        s_selectedPiece.m_sprite.material = s_selectedPiece.m_originalMaterial;   // Reset the material of the selected piece to its original material
+        Deselect();      // Deselect the piece after moving
+    }
+
+    public static void Deselect()
+    {
+        if (s_selectedPiece != null)     // If there is a selected piece, reset its material and clear the selection
+        {
+            s_selectedPiece.m_sprite.material = s_selectedPiece.m_originalMaterial;   
+            s_selectedPiece = null;      // Clear the selected piece
+        }
     }
 
     public virtual bool LegalAttack(Tile target)

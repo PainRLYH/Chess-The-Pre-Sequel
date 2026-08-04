@@ -108,4 +108,15 @@ public class Board : MonoBehaviour
             pieces[randomIndex] = tempHolder;
         }
     }
+
+    public void ClearAllHighlights()
+    {
+        for (int i = 0; i <= 7; i++)
+        {
+            for (int j = 0; j <= 7; j++)
+            {
+                m_tiles[i, j].ClearHighlights();
+            }
+        }
+    }
 }

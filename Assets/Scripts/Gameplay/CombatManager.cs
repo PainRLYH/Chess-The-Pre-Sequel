@@ -35,17 +35,9 @@ public class CombatManager : MonoBehaviour
             defenderTile.m_occupiedBy = null;   // Clear the tile's reference to the destroyed piece
             Piece.s_selectedPiece.Move(defenderTile);   // Move the attacker to the defender's tile
         }
-        for (int i = 0; i <= 7; i++)
-        {
-            for (int j = 0; j <= 7; j++)
-            {
-                Tile targetTile = m_board.m_tiles[i, j];      // Loop through all tiles on the board
-                targetTile.GetComponent<SpriteRenderer>().color = Color.white;     // Reset the color of each tile to white
-                targetTile.m_isLightened = false;   // Reset the is_Lightened property of each tile to false
-                targetTile.m_isAttack = false;   // Reset the is_Attack property of each tile to false
-            }
-        }
-        attacker.GetComponent<SpriteRenderer>().material = attacker.m_originalMaterial;   // Reset the material of the attacker to its original material
-        Piece.s_selectedPiece = null;   // Reset the selected piece to null after moving
+
+        m_board.ClearAllHighlights();     // Clear all highlights on the board
+
+        Piece.Deselect();    // Deselect the attacking piece
     }
 }
