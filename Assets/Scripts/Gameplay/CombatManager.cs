@@ -33,11 +33,7 @@ public class CombatManager : MonoBehaviour
             Tile defenderTile = defender.GetComponentInParent<Tile>();     // Get the tile that the defender is on
             GameObject.Destroy(defender.gameObject);    // Destroy the defender piece
             defenderTile.m_occupiedBy = null;   // Clear the tile's reference to the destroyed piece
-            Piece.s_selectedPiece.Move(defenderTile);   // Move the attacker to the defender's tile
+            attacker.Move(defenderTile);   // Move the attacker to the defender's tile
         }
-
-        m_board.ClearAllHighlights();     // Clear all highlights on the board
-
-        Piece.Deselect();    // Deselect the attacking piece
     }
 }

@@ -7,22 +7,17 @@ public class Tile : MonoBehaviour
     public bool m_isLightened;
     public bool m_isAttack;
     private SpriteRenderer m_sprite;
+    private SelectionManager m_selectionManager;
 
     private void Awake()
     {
         m_sprite = GetComponent<SpriteRenderer>();
+        m_selectionManager = FindAnyObjectByType<SelectionManager>();
     }
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
-        if (m_isAttack)
-        {
-            Piece.s_selectedPiece.Capture(this);
-        }
-        else if (m_isLightened)
-        {
-            Piece.s_selectedPiece.Move(this);
-        }
+        m_selectionManager.OnTileClicked(this);
     }
 
     public void ClearHighlights()
