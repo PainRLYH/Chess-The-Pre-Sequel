@@ -12,16 +12,11 @@ public class SelectionManager : MonoBehaviour
 
     public void SelectPiece(Piece piece)
     { 
-        if (m_selectedPiece != null)
-        {
-            ClearSelection();      // Call the Deselect method to reset the material of the previously selected piece
-        }
-
+        ClearSelection();      // Call the Deselect method to reset the material of the previously selected piece
+ 
         piece.Select();        // Call the Select method to change the material of the newly selected piece
 
         m_selectedPiece = piece;      // Set the currently selected piece to this piece
-
-        Tile currentTile = piece.GetComponentInParent<Tile>();
 
         m_board.ClearAllHighlights();     // Clear all highlights on the board
 

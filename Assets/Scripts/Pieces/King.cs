@@ -16,19 +16,6 @@ public class King : Piece
 
     public override bool LegalMove(Tile targetTile)
     {
-        if (targetTile.m_occupiedBy != null)
-        {
-            return false;
-        }
-
-        int dx = targetTile.m_coordinates.x - m_currentCoordinates.x;     // Calculate the difference in x and y coordinates between the current position and the target tile
-        int dy = targetTile.m_coordinates.y - m_currentCoordinates.y;
-
-        if (!(Mathf.Abs(dx) <=1 && Mathf.Abs(dy) <= 1))
-        {
-            return false;
-        }
-
-        return true;
+        return CanReach(targetTile, Directions.Universal, 1);  // King can move 1 tile in any direction
     }
 }

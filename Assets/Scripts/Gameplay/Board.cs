@@ -119,4 +119,13 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+    public Tile GetTileAt(Vector2Int coordinates)       // Get the tile at the specified coordinates
+    {
+        if (coordinates.x < 0 || coordinates.x > 7 || coordinates.y < 0 || coordinates.y > 7)
+        {
+            return null; // Out of bounds
+        }
+        return m_tiles[coordinates.x, coordinates.y];
+    }
 }

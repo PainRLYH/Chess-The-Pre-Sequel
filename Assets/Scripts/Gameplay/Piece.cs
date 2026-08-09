@@ -37,7 +37,7 @@ public class Piece : MonoBehaviour
     public void Move(Tile target)
     {
         GetComponentInParent<Tile>().m_occupiedBy = null;     // Set the occupied_By property of the current tile to null
-        
+
         transform.SetParent(target.transform);       // Set the parent of the selected piece to the target tile
         transform.localPosition = Vector3.zero;      // Move the piece to the center of the target tile
         target.m_occupiedBy = this;     // Set the occupied_By property of the target tile to this piece
@@ -56,12 +56,43 @@ public class Piece : MonoBehaviour
 
     public virtual bool LegalAttack(Tile target)
     {
-        return LegalMove(target);     
+        return LegalMove(target);
     }
 
     public void Capture(Tile target)
     {
         m_combatManager.StartCombat(this, target.m_occupiedBy);      // Start combat between this piece and the piece occupying the target tile
+    }
+
+    protected bool CanReach(Tile tile, Vector2Int[] directions, int maxDistance)
+    {
+        if (tile.m_occupiedBy != null)      // Check if the target tile is occupied
+        {
+            return false;
+        }
+
+        foreach (Vector2Int direction in directions)    // Iterate through each direction
+        {
+            for (int distance = 1; distance <= maxDistance; distance++)     // Iterate through each distance from 1 to maxDistance
+            {
+                Vector2Int newCoordinates = m_currentCoordinates + direction * distance;    // Calculate the new coordinates based on the current coordinates, direction, and distance
+                Tile targetTile = m_board.GetTileAt(newCoordinates);
+                if (targetTile == null)      // Check if the target tile is out of bounds
+                {
+                    break;
+                }
+                if (targetTile.m_occupiedBy != null)      // Check if the target tile is occupied
+                {
+                    break;
+                }
+                if (targetTile == tile)      // Check if the target tile is the one we want to reach
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public virtual bool LegalMove(Tile info)
